@@ -18,7 +18,7 @@ function PhotoForm(props) {
   async function handleSubmit() {
     const { data } = await axios.post(api, newPhoto);
     console.log(data.photo.slice(-13));
-    alert("Added" + " " + data.photo.slice(-13));
+    alert("Added" + data.photo.slice(-13));
   }
 
   return (

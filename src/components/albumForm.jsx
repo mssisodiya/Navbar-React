@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -17,7 +17,7 @@ function AlbumForm(props) {
 
   async function handleSubmit() {
     const { data } = await axios.post(api, newAlbum);
-    alert("Added" + " " + data.title);
+    alert("Added" + data.title);
   }
 
   return (

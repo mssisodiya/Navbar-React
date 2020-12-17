@@ -6,17 +6,16 @@ const Photos = ({ match }) => {
   const [photos, setPhotos] = useState([]);
   console.log(match);
   const api = match.params.id
-    ? `https://jsonplaceholder.typicode.com/photos?albumId=${match.params.id}`
+    ? `https://jsonplaceholder.typicode.com/albums/${match.params.id}/photos`
     : "https://jsonplaceholder.typicode.com/photos";
 
   useEffect(() => {
+    async function fetchPhotos() {
+      const { data: photos } = await axios.get(api);
+      setPhotos(photos.slice(-100));
+    }
     fetchPhotos();
-  }, []);
-
-  async function fetchPhotos() {
-    const { data: photos } = await axios.get(api);
-    setPhotos(photos.slice(-100));
-  }
+  }, [api]);
 
   return (
     <div className="row">
@@ -34,7 +33,7 @@ const Photos = ({ match }) => {
       </div>
       {photos.map((photo) => (
         <div key={photo.id} className="col-6 col-md-3">
-          <img className="card-img-top" src={photo.url} />
+          <img className="card-img-top" src={photo.url} alt="pics here" />
         </div>
       ))}
     </div>

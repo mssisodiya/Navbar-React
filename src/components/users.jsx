@@ -21,10 +21,8 @@ function Users() {
     <div>
       <ul>
         {users.map((user) => (
-          <li>
-            <Link to={`albums/${user.id}`} key={user.id}>
-              {user.name}
-            </Link>
+          <li key={user.id}>
+            <Link to={`albums/${user.id}`}>{user.name}</Link>
           </li>
         ))}
       </ul>
