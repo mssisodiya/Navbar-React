@@ -1,44 +1,35 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const api = "https://jsonplaceholder.typicode.com/users";
 
-class Users extends Component {
-  state = {
-    users: [],
-  };
+function Users() {
+  const [users, setUsers] = useState([]);
 
-  componentDidMount = async () => {
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  async function fetchUsers() {
     const { data: users } = await axios.get(api);
-    this.setState({ users });
-  };
-
-  render() {
-    return (
-      <div>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>User Name</th>
-              <th>Email</th>
-              <th>Address</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.users.map((user) => (
-              <tr key={user.id}>
-                <td>{user.name}</td>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-                <td>{user.address.street}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
+    console.log(users);
+    setUsers(users);
   }
+
+  return (
+    <div>
+      <ul>
+        {users.map((user) => (
+          <li>
+            <Link to={`albums/${user.id}`} key={user.id}>
+              {user.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 export default Users;
