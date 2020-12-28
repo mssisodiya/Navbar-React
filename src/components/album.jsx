@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAlbums, fetchAlbumsById } from "../actions";
 
 function Albums({ match }) {
-  const [albums, setAlbums] = useState([]);
-  const api = match.params.id
-    ? `https://jsonplaceholder.typicode.com/users/${match.params.id}/albums`
-    : `https://jsonplaceholder.typicode.com/albums/`;
+  const dispatch = useDispatch();
+  const albums = useSelector((state) => state.albums);
 
   useEffect(() => {
-    async function fetchAlbum() {
-      const { data: albums } = await axios.get(api);
-      console.log(albums);
-      setAlbums(albums);
-    }
-    fetchAlbum();
-  }, [api]);
+    dispatch(
+      match.params.id ? fetchAlbumsById(match.params.id) : fetchAlbums()
+    );
+  }, [match, dispatch]);
 
   return (
     <div className="row">

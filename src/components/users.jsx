@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUsers } from "../actions";
 
-const api = "https://jsonplaceholder.typicode.com/users";
-
-function Users() {
-  const [users, setUsers] = useState([]);
+const Users = () => {
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.users);
 
   useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  async function fetchUsers() {
-    const { data: users } = await axios.get(api);
-    console.log(users);
-    setUsers(users);
-  }
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
   return (
     <div>
@@ -28,6 +22,6 @@ function Users() {
       </ul>
     </div>
   );
-}
+};
 
 export default Users;

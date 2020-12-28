@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addNewPhoto } from "../actions";
 
 function PhotoForm(props) {
   const [newPhoto, setPhoto] = useState({
     photo: "",
     userId: props.match.params.id,
   });
-  const api = `https://jsonplaceholder.typicode.com/photos`;
+  const dispatch = useDispatch();
 
   function handleChange({ currentTarget: input }) {
     const data = { ...newPhoto };
@@ -16,15 +17,13 @@ function PhotoForm(props) {
   }
 
   async function handleSubmit() {
-    const { data } = await axios.post(api, newPhoto);
-    console.log(data.photo.slice(-13));
-    alert("Added" + data.photo.slice(-13));
+    dispatch(addNewPhoto(newPhoto));
   }
 
   return (
     <div>
       <div className="form-group">
-        <label for="exampleInputEmail1">photo</label>
+        <label>photo</label>
         <input
           type="file"
           className="form-control"

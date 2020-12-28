@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { fetchPhotos, fetchPhotosById } from "../actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const Photos = ({ match }) => {
-  const [photos, setPhotos] = useState([]);
-  console.log(match);
-  const api = match.params.id
-    ? `https://jsonplaceholder.typicode.com/albums/${match.params.id}/photos`
-    : "https://jsonplaceholder.typicode.com/photos";
+  const dispatch = useDispatch();
+  const photos = useSelector((state) => state.photos.slice(-100));
 
   useEffect(() => {
-    async function fetchPhotos() {
-      const { data: photos } = await axios.get(api);
-      setPhotos(photos.slice(-100));
-    }
-    fetchPhotos();
-  }, [api]);
+    dispatch(
+      match.params.id ? fetchPhotosById(match.params.id) : fetchPhotos()
+    );
+  }, [match, dispatch]);
 
   return (
     <div className="row">

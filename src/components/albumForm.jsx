@@ -1,29 +1,28 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addNewAlbum } from "../actions";
 
 function AlbumForm(props) {
+  const dispatch = useDispatch();
   const [newAlbum, setAlbum] = useState({
     title: "",
     userId: props.match.params.id,
   });
-  const api = `https://jsonplaceholder.typicode.com/albums`;
 
   function handleChange({ currentTarget: input }) {
     const data = { ...newAlbum };
     data[input.name] = input.value;
     setAlbum(data);
   }
-
-  async function handleSubmit() {
-    const { data } = await axios.post(api, newAlbum);
-    alert("Added" + data.title);
+  function handleSubmit() {
+    dispatch(addNewAlbum(newAlbum));
   }
 
   return (
     <div>
       <div className="form-group">
-        <label for="exampleInputEmail1">Title</label>
+        <label>Title</label>
         <input
           type="text"
           className="form-control"
