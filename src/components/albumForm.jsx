@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addNewAlbum } from "../actions";
+import { addNewAlbum } from "../actions/albums";
 
 function AlbumForm(props) {
   const dispatch = useDispatch();

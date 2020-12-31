@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsers } from "../actions";
+import { fetchUsers } from "../actions/users";
 
 const Users = () => {
   const dispatch = useDispatch();

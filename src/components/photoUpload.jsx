@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addNewPhoto } from "../actions";
+import { addNewPhoto } from "../actions/photos";
 
 function PhotoForm(props) {
   const [newPhoto, setPhoto] = useState({

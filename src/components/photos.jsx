@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { fetchPhotos, fetchPhotosById } from "../actions";
+import { fetchPhotos, fetchPhotosById } from "../actions/photos";
 import { useDispatch, useSelector } from "react-redux";
 
 const Photos = ({ match }) => {
